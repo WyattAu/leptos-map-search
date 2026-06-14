@@ -1,0 +1,25 @@
+[package]
+name = "leptos-map-search"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Map search/typeahead component for Leptos — filter and select countries with keyboard navigation"
+repository = "https://github.com/WyattAu/leptos-map-search"
+keywords = ["leptos", "map", "search", "typeahead", "countries"]
+categories = ["wasm", "gui", "web-programming"]
+
+[dependencies]
+leptos = { version = "0.8", default-features = false }
+web-sys = { version = "0.3", features = [
+    "KeyboardEvent", "HtmlInputElement", "Element",
+] }
+wasm-bindgen = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+gloo-net = { version = "0.6", features = ["http"] }
+gloo-timers = { version = "0.3", features = ["futures"] }
+
+[features]
+hydrate = ["leptos/hydrate"]
+ssr = ["leptos/ssr"]
+default = ["hydrate"]
