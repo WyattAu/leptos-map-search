@@ -13,12 +13,13 @@
 //!
 //! #[component]
 //! fn App() -> impl IntoView {
-//!     let on_select = move |country: CountryMeta| {
+//!     let (countries, _set_countries) = signal(Vec::<CountryMeta>::new());
+//!     let on_select = Callback::new(move |country: CountryMeta| {
 //!         leptos::logging::log!("Selected: {} ({})", country.name, country.iso2);
-//!     };
+//!     });
 //!
 //!     view! {
-//!         <MapSearchBar on_select=on_select/>
+//!         <MapSearchBar countries=Signal::from(countries) on_select=on_select/>
 //!     }
 //! }
 //! ```
