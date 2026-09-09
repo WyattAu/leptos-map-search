@@ -2,6 +2,7 @@
 name = "leptos-map-search"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.85"
 license = "MIT"
 description = "Map search/typeahead component for Leptos — filter and select countries with keyboard navigation"
 repository = "https://github.com/WyattAu/leptos-map-search"
