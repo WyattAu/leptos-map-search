@@ -7,6 +7,7 @@ description = "Map search/typeahead component for Leptos — filter and select c
 repository = "https://github.com/WyattAu/leptos-map-search"
 keywords = ["leptos", "map", "search", "typeahead", "countries"]
 categories = ["wasm", "gui", "web-programming"]
+exclude = ["/target"]
 
 [dependencies]
 leptos = { version = "0.8", default-features = false }
@@ -23,3 +24,7 @@ gloo-timers = { version = "0.3", features = ["futures"] }
 hydrate = ["leptos/hydrate"]
 ssr = ["leptos/ssr"]
 default = ["hydrate"]
+
+[lints.clippy]
+unwrap_used = "warn"
+expect_used = "warn"
