@@ -26,8 +26,8 @@
 
 #![deny(missing_docs)]
 
-mod types;
 mod component;
+mod types;
 
-pub use types::CountryMeta;
 pub use component::MapSearchBar;
+pub use types::{filter_countries, score_match, CountryMeta, SearchResult};

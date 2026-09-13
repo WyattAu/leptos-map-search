@@ -80,6 +80,7 @@ pub fn score_match(country: &CountryMeta, query: &str) -> u32 {
 }
 
 #[cfg(test)]
+#[allow(clippy::unwrap_used)]
 mod tests {
     use super::*;
 

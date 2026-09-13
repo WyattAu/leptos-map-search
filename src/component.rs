@@ -3,7 +3,7 @@
 use leptos::prelude::*;
 use web_sys::KeyboardEvent;
 
-use crate::types::CountryMeta;
+use crate::types::{filter_countries, score_match, CountryMeta};
 
 /// A map search/typeahead component.
 ///
@@ -32,7 +32,7 @@ pub fn MapSearchBar(
 
     // Filter countries on query change
     Effect::new(move |_| {
-        let q = query.get().to_lowercase();
+        let q = query.get();
         let all = countries.get();
 
         if q.len() < 2 {
@@ -41,18 +41,10 @@ pub fn MapSearchBar(
             return;
         }
 
-        let mut matched: Vec<CountryMeta> = all
-            .into_iter()
-            .filter(|c| {
-                c.name.to_lowercase().contains(&q)
-                    || c.iso2.to_lowercase().contains(&q)
-                    || c.iso3.to_lowercase().contains(&q)
-                    || c.capital.to_lowercase().contains(&q)
-            })
-            .take(8)
-            .collect();
-
-        matched.sort_by(|a, b| a.name.cmp(&b.name));
+        let mut matched: Vec<CountryMeta> =
+            filter_countries(&all, &q).into_iter().cloned().collect();
+        matched.sort_by_key(|c| score_match(c, &q));
+        matched.truncate(8);
 
         set_results.set(matched);
         set_show_dropdown.set(true);
@@ -67,7 +59,9 @@ pub fn MapSearchBar(
     let on_keydown = move |ev: KeyboardEvent| {
         let res = results.get();
         let len = res.len();
-        if len == 0 { return; }
+        if len == 0 {
+            return;
+        }
 
         match ev.key().as_str() {
             "ArrowDown" => {
@@ -96,10 +90,9 @@ pub fn MapSearchBar(
     };
 
     let on_blur = move |_| {
-        let set_show = set_show_dropdown.clone();
         leptos::task::spawn_local(async move {
             gloo_timers::future::TimeoutFuture::new(150).await;
-            set_show.set(false);
+            set_show_dropdown.set(false);
         });
     };
 
@@ -143,13 +136,12 @@ pub fn MapSearchBar(
                             let name = country.name.clone();
                             let iso2 = country.iso2.clone();
                             let country_clone = country.clone();
-                            let select = select_country.clone();
                             view! {
                                 <div
                                     class=move || if is_selected { "map-search-item is-selected" } else { "map-search-item" }
                                     role="option"
                                     aria-selected=is_selected.to_string()
-                                    on:mousedown=move |_| select(country_clone.clone())
+                                    on:mousedown=move |_| select_country(country_clone.clone())
                                 >
                                     <span class="map-search-iso">{iso2}</span>
                                     <span class="map-search-name">{name}</span>
