@@ -1,10 +1,10 @@
 [package]
 name = "leptos-map-search"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.85"
 license = "MIT"
-description = "Map search/typeahead component for Leptos — filter and select countries with keyboard navigation"
+description = "Map search/typeahead component for Leptos: filter and select countries with keyboard navigation"
 repository = "https://github.com/WyattAu/leptos-map-search"
 keywords = ["leptos", "map", "search", "typeahead", "countries"]
 categories = ["wasm", "gui", "web-programming"]
