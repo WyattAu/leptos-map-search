@@ -1,6 +1,6 @@
 # leptos-map-search
 
-Map search/typeahead component for Leptos — filter and select countries with keyboard navigation.
+Map search/typeahead component for Leptos; filter and select countries with keyboard navigation.
 
 ## Features
 
@@ -67,8 +67,8 @@ pub struct CountryMeta {
 leptos-map-search = { version = "0.1", features = ["hydrate"] }
 ```
 
-- `hydrate` (default) — Client-side hydration support
-- `ssr` — Server-side rendering support
+- `hydrate` (default); Client-side hydration support
+- `ssr`; Server-side rendering support
 
 ## License
 
